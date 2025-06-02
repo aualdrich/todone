@@ -1,0 +1,10 @@
+<h1>My Lists</h1>
+<% if @lists.any? %>
+  <ul>
+    <% @lists.each do |list| %>
+      <li><%= list.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No lists found.</p>
+<% end %> 
