@@ -1,0 +1,47 @@
+<%# Navigation component %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <%# Hamburger menu button %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <%# Lists menu %>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <% if user_signed_in? %>
+          <% @lists.each do |list| %>
+            <li class="nav-item">
+              <%= link_to list.name, list_path(list), class: "nav-link" %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+
+      <%# Authentication links %>
+      <div class="navbar-nav">
+        <% if user_signed_in? %>
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= current_user.email %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            </ul>
+          </div>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Add task button %>
+    <% if user_signed_in? %>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTaskModal">
+        <i class="bi bi-plus-lg"></i> Add Task
+      </button>
+    <% end %>
+  </div>
+</nav>
+
+<%= render "items/new_item" if user_signed_in? %> 

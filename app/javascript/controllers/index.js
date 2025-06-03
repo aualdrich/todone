@@ -5,4 +5,7 @@
 import { application } from "./application"
 
 import HelloController from "./hello_controller"
+import TaskModalController from "./task_modal_controller"
+
 application.register("hello", HelloController)
+application.register("task-modal", TaskModalController)
